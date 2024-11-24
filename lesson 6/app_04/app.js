@@ -1,9 +1,11 @@
 const http = require('http');
+const fs = require('fs');
 const PORT = '3500'
 
 // localhost:3500
 http.createServer(function (req, res) {
     const url = req.url;
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
     console.log(url);
 
     switch (url) {
@@ -13,7 +15,8 @@ http.createServer(function (req, res) {
             break;
         case '/contact':
             console.log('contact page');
-            res.write('<h1>Contact</h1>');
+            let data = fs.readFileSync('./contact.html', { encoding: 'utf8', flag: 'r' });
+            res.write(data)
             break;
 
         default:
